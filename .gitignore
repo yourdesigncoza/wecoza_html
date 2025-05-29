@@ -1,0 +1,106 @@
+# PHP
+*.log
+*.tmp
+*.cache
+*.bak
+*.swp
+*.swo
+*~
+
+# Composer
+/vendor/
+composer.phar
+composer.lock
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# Logs
+/logs/
+*.log
+error_log
+access_log
+
+# Cache directories
+/cache/
+/tmp/
+/temp/
+
+# Upload directories (be careful with this - you might want to keep some uploads)
+/uploads/temp/
+/uploads/cache/
+
+# Database files (if using SQLite)
+*.sqlite
+*.sqlite3
+*.db
+
+# Configuration files with sensitive data
+config/database.php
+config/secrets.php
+
+# Backup files
+*.backup
+*.bak
+*.old
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node.js (if you use any frontend build tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+/dist/
+/build/
+
+# Temporary files
+*.tmp
+*.temp
+
+# PHPUnit
+/phpunit.xml
+/.phpunit.result.cache
+
+# Twig cache
+/cache/twig/
+
+# Session files
+/sessions/
+
+# Error logs
+php_errors.log
+
+# Local development files
+/local/
+/dev/
+
+# Cookies and session data
+cookies.txt
+sessions/
+
+# Any local configuration overrides
+local.config.php
+development.config.php
+
+# Project documentation and reference files
+/PRD/

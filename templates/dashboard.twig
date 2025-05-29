@@ -1,0 +1,271 @@
+{% extends "layout.twig" %}
+
+{% block title %}Dashboard - {{ parent() }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2">
+        <i class="bi bi-speedometer2 me-2"></i>
+        Dashboard
+    </h1>
+    <div>
+        <a href="/classes/create" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-1"></i>
+            Create New Class
+        </a>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">Total Classes</h5>
+                        <h2 class="mb-0">{{ stats.total_classes|default(0) }}</h2>
+                    </div>
+                    <i class="bi bi-collection" style="font-size: 2rem; opacity: 0.7;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">Active Classes</h5>
+                        <h2 class="mb-0">{{ upcoming_classes|length }}</h2>
+                    </div>
+                    <i class="bi bi-play-circle" style="font-size: 2rem; opacity: 0.7;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">SETA Funded</h5>
+                        <h2 class="mb-0">{{ stats.seta_funded.1|default(0) }}</h2>
+                    </div>
+                    <i class="bi bi-cash-coin" style="font-size: 2rem; opacity: 0.7;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">This Month</h5>
+                        <h2 class="mb-0">{{ stats.by_month|last.count|default(0) }}</h2>
+                    </div>
+                    <i class="bi bi-calendar-month" style="font-size: 2rem; opacity: 0.7;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Recent Classes -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="bi bi-clock-history me-2"></i>
+                    Recent Classes
+                </h5>
+                <a href="/classes" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+                {% if recent_classes %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Class Code</th>
+                                <th>Subject</th>
+                                <th>Client</th>
+                                <th>Agent</th>
+                                <th>Start Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for class in recent_classes %}
+                            <tr>
+                                <td>
+                                    <a href="/classes/{{ class.classId }}" class="text-decoration-none">
+                                        <strong>{{ class.classCode }}</strong>
+                                    </a>
+                                </td>
+                                <td>{{ class.classSubject }}</td>
+                                <td>{{ client_lookup[class.clientId]|default('Unknown') }}</td>
+                                <td>{{ agent_lookup[class.classAgent]|default('Unassigned') }}</td>
+                                <td>{{ class.originalStartDate|date('M d, Y') }}</td>
+                                <td>
+                                    {% set today = "now"|date('Y-m-d') %}
+                                    {% if class.originalStartDate > today %}
+                                        <span class="badge bg-secondary">Upcoming</span>
+                                    {% elseif class.originalStartDate <= today %}
+                                        <span class="badge bg-success">Active</span>
+                                    {% else %}
+                                        <span class="badge bg-primary">Completed</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="bi bi-inbox" style="font-size: 3rem; color: #dee2e6;"></i>
+                    <p class="text-muted mt-2">No classes found</p>
+                    <a href="/classes/create" class="btn btn-primary">Create Your First Class</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Stats & Actions -->
+    <div class="col-md-4">
+        <!-- Class Types Breakdown -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-pie-chart me-2"></i>
+                    Classes by Type
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if stats.by_type %}
+                    {% for type, count in stats.by_type %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-capitalize">{{ type }}</span>
+                        <span class="badge bg-primary">{{ count }}</span>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <p class="text-muted mb-0">No data available</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Upcoming Classes -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-calendar-event me-2"></i>
+                    Upcoming Classes
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if upcoming_classes %}
+                    {% for class in upcoming_classes|slice(0, 5) %}
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <div class="fw-bold">{{ class.classCode }}</div>
+                            <small class="text-muted">{{ class.classSubject }}</small>
+                        </div>
+                        <div class="text-end">
+                            <div class="small">{{ class.originalStartDate|date('M d') }}</div>
+                            <small class="text-muted">{{ agent_lookup[class.classAgent]|default('TBA') }}</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    {% if upcoming_classes|length > 5 %}
+                    <div class="text-center mt-3">
+                        <a href="/classes?filter=upcoming" class="btn btn-sm btn-outline-primary">
+                            View All ({{ upcoming_classes|length }})
+                        </a>
+                    </div>
+                    {% endif %}
+                {% else %}
+                <div class="text-center py-3">
+                    <i class="bi bi-calendar-x" style="font-size: 2rem; color: #dee2e6;"></i>
+                    <p class="text-muted mt-2 mb-0">No upcoming classes</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-lightning me-2"></i>
+                    Quick Actions
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="/classes/create" class="btn btn-outline-primary w-100 mb-2">
+                            <i class="bi bi-plus-circle me-2"></i>
+                            Create New Class
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/classes" class="btn btn-outline-secondary w-100 mb-2">
+                            <i class="bi bi-list me-2"></i>
+                            View All Classes
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/classes/export/csv" class="btn btn-outline-success w-100 mb-2">
+                            <i class="bi bi-download me-2"></i>
+                            Export Data
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/reports" class="btn btn-outline-info w-100 mb-2">
+                            <i class="bi bi-graph-up me-2"></i>
+                            View Reports
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Auto-refresh dashboard every 5 minutes
+setTimeout(function() {
+    location.reload();
+}, 300000);
+
+// Add some interactivity to the stats cards
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.transition = 'transform 0.2s ease-in-out';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+});
+</script>
+{% endblock %}

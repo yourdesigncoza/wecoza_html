@@ -1,0 +1,106 @@
+{% extends "layout.twig" %}
+
+{% block title %}Login - {{ parent() }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid vh-100">
+    <div class="row h-100">
+        <div class="col-md-6 d-flex align-items-center justify-content-center bg-primary">
+            <div class="text-center text-white">
+                <i class="bi bi-mortarboard-fill" style="font-size: 4rem;"></i>
+                <h1 class="mt-3 mb-4">{{ app_name }}</h1>
+                <p class="lead">Professional Class Management System</p>
+                <p>Manage training classes, schedules, and learners with ease.</p>
+            </div>
+        </div>
+        
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+            <div class="w-100" style="max-width: 400px;">
+                <div class="text-center mb-4">
+                    <h2>Welcome Back</h2>
+                    <p class="text-muted">Please sign in to your account</p>
+                </div>
+
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <form method="POST" action="/login" class="needs-validation" novalidate>
+                    <div class="floating-label mb-3">
+                        <input type="text" class="form-control form-control-lg" id="username" name="username" 
+                               placeholder=" " value="{{ username|default('') }}" required>
+                        <label for="username">Username or Email</label>
+                        <div class="invalid-feedback">
+                            Please enter your username or email.
+                        </div>
+                    </div>
+
+                    <div class="floating-label mb-4">
+                        <input type="password" class="form-control form-control-lg" id="password" name="password" 
+                               placeholder=" " required>
+                        <label for="password">Password</label>
+                        <div class="invalid-feedback">
+                            Please enter your password.
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="remember_me" name="remember_me">
+                            <label class="form-check-label" for="remember_me">
+                                Remember me
+                            </label>
+                        </div>
+                        <a href="/forgot-password" class="text-decoration-none">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>
+                        Sign In
+                    </button>
+
+                    <div class="text-center">
+                        <p class="mb-0">Don't have an account? 
+                            <a href="/register" class="text-decoration-none">Sign up here</a>
+                        </p>
+                    </div>
+                </form>
+
+                <hr class="my-4">
+
+                <div class="text-center">
+                    <small class="text-muted">
+                        <strong>Admin Credentials:</strong><br>
+                        Email: admin@wecoza.co.za<br>
+                        Password: admin123
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Form validation
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+</script>
+{% endblock %}

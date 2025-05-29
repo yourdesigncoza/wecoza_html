@@ -1,0 +1,26 @@
+{
+    "employed": [
+        "Basic Computer Skills",
+        "Customer Service",
+        "Leadership Development",
+        "Project Management"
+    ],
+    "community": [
+        "Adult Basic Education",
+        "Life Skills",
+        "Entrepreneurship",
+        "Financial Literacy"
+    ],
+    "safety": [
+        "First Aid Level 1",
+        "First Aid Level 2",
+        "Fire Safety",
+        "Occupational Health and Safety"
+    ],
+    "skills": [
+        "Welding",
+        "Electrical Installation",
+        "Plumbing",
+        "Carpentry"
+    ]
+}

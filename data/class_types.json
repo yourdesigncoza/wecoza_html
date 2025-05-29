@@ -1,0 +1,18 @@
+[
+    {
+        "id": "employed",
+        "name": "Employed"
+    },
+    {
+        "id": "community",
+        "name": "Community"
+    },
+    {
+        "id": "safety",
+        "name": "Safety Training"
+    },
+    {
+        "id": "skills",
+        "name": "Skills Development"
+    }
+]

@@ -1,0 +1,36 @@
+{
+    "11": [
+        {
+            "id": "11_1",
+            "name": "Aspen Pharmacare - Head Office",
+            "address": "100 Pharma Rd, Durban, 4001"
+        },
+        {
+            "id": "11_2",
+            "name": "Aspen Pharmacare - Production Unit",
+            "address": "101 Pharma Rd, Durban, 4001"
+        },
+        {
+            "id": "11_3",
+            "name": "Aspen Pharmacare - Research Centre",
+            "address": "102 Pharma Rd, Durban, 4001"
+        }
+    ],
+    "14": [
+        {
+            "id": "14_1",
+            "name": "Barloworld - Northern Branch",
+            "address": "10 Northern Ave, Johannesburg, 2001"
+        },
+        {
+            "id": "14_2",
+            "name": "Barloworld - Southern Branch",
+            "address": "20 Southern St, Johannesburg, 2002"
+        },
+        {
+            "id": "14_3",
+            "name": "Barloworld - Central Branch",
+            "address": "30 Central Blvd, Johannesburg, 2003"
+        }
+    ]
+}

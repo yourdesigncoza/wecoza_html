@@ -1,0 +1,42 @@
+// SCSS Variables
+$primary-color: #667eea;
+$secondary-color: #764ba2;
+$border-radius: 0.5rem;
+$transition: all 0.3s ease;
+
+// Mixins
+@mixin gradient-bg($start: $primary-color, $end: $secondary-color) {
+    background: linear-gradient(135deg, $start 0%, $end 100%);
+}
+
+@mixin hover-lift {
+    transition: $transition;
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}
+
+// Custom Components
+.btn-custom {
+    @include gradient-bg();
+    @include hover-lift();
+    border: none;
+    color: white;
+    border-radius: $border-radius;
+}
+
+.card-custom {
+    @include hover-lift();
+    border: none;
+    border-radius: $border-radius;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+    .main-content {
+        padding: 1rem;
+    }
+}

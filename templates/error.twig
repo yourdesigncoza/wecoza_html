@@ -1,0 +1,36 @@
+{% extends "layout.twig" %}
+
+{% block title %}Error - {{ parent() }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+    <div class="text-center">
+        <i class="bi bi-exclamation-triangle-fill text-danger" style="font-size: 4rem;"></i>
+        <h1 class="mt-3 mb-4">Oops! Something went wrong</h1>
+        
+        {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+            {{ error_message }}
+        </div>
+        {% endif %}
+        
+        {% if error_details and app.environment == 'development' %}
+        <div class="alert alert-warning" role="alert">
+            <strong>Debug Information:</strong><br>
+            {{ error_details }}
+        </div>
+        {% endif %}
+        
+        <div class="mt-4">
+            <a href="/dashboard" class="btn btn-primary me-2">
+                <i class="bi bi-house me-1"></i>
+                Go to Dashboard
+            </a>
+            <button onclick="history.back()" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i>
+                Go Back
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}

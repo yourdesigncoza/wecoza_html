@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ app_name }}{% endblock %}</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS File -->
+    <link href="/assets/css/custom.css" rel="stylesheet">
+
+    <!-- Inline Custom CSS -->
+    <style>
+        .floating-label {
+            position: relative;
+        }
+        
+        .floating-label input,
+        .floating-label select,
+        .floating-label textarea {
+            padding-top: 1.625rem;
+            padding-bottom: 0.625rem;
+        }
+        
+        .floating-label label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding: 1rem 0.75rem;
+            pointer-events: none;
+            border: 1px solid transparent;
+            transform-origin: 0 0;
+            transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+        }
+        
+        .floating-label input:focus ~ label,
+        .floating-label input:not(:placeholder-shown) ~ label,
+        .floating-label select:focus ~ label,
+        .floating-label select:not([value=""]) ~ label,
+        .floating-label textarea:focus ~ label,
+        .floating-label textarea:not(:placeholder-shown) ~ label {
+            opacity: 0.65;
+            transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            margin: 1.5rem 0 1rem 0;
+            border-radius: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-section {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+        }
+        
+        .sidebar {
+            min-height: calc(100vh - 56px);
+            background: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+        }
+        
+        .main-content {
+            padding: 2rem;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+        .success-message {
+            color: #198754;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+    
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="bi bi-mortarboard-fill me-2"></i>
+                {{ app_name }}
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">
+                            <i class="bi bi-speedometer2 me-1"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/classes">
+                            <i class="bi bi-collection me-1"></i>
+                            Classes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/classes/create">
+                            <i class="bi bi-plus-circle me-1"></i>
+                            Create Class
+                        </a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-1"></i>
+                            User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="POST" action="/logout" class="d-inline">
+                                    <button type="submit" class="dropdown-item">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid">
+        <div class="row">
+            {% if show_sidebar|default(true) %}
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar p-3">
+                <h6 class="text-muted mb-3">Quick Actions</h6>
+                <div class="list-group list-group-flush">
+                    <a href="/classes" class="list-group-item list-group-item-action">
+                        <i class="bi bi-list me-2"></i>
+                        View All Classes
+                    </a>
+                    <a href="/classes/create" class="list-group-item list-group-item-action">
+                        <i class="bi bi-plus me-2"></i>
+                        Create New Class
+                    </a>
+                    <a href="/dashboard" class="list-group-item list-group-item-action">
+                        <i class="bi bi-graph-up me-2"></i>
+                        Dashboard
+                    </a>
+                </div>
+                
+                <h6 class="text-muted mb-3 mt-4">Reports</h6>
+                <div class="list-group list-group-flush">
+                    <a href="/classes/export/csv" class="list-group-item list-group-item-action">
+                        <i class="bi bi-file-earmark-spreadsheet me-2"></i>
+                        Export CSV
+                    </a>
+                    <a href="/classes/export/pdf" class="list-group-item list-group-item-action">
+                        <i class="bi bi-file-earmark-pdf me-2"></i>
+                        Export PDF
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="col-md-10 main-content">
+            {% else %}
+            <div class="col-12 main-content">
+            {% endif %}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Initialize floating labels
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle floating labels for selects
+            const selects = document.querySelectorAll('.floating-label select');
+            selects.forEach(select => {
+                select.addEventListener('change', function() {
+                    if (this.value !== '') {
+                        this.classList.add('has-value');
+                    } else {
+                        this.classList.remove('has-value');
+                    }
+                });
+                
+                // Initialize on page load
+                if (select.value !== '') {
+                    select.classList.add('has-value');
+                }
+            });
+        });
+    </script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,22 @@
+[
+    {
+        "id": "HWSETA",
+        "name": "Health and Welfare SETA"
+    },
+    {
+        "id": "MERSETA",
+        "name": "Manufacturing, Engineering and Related Services SETA"
+    },
+    {
+        "id": "BANKSETA",
+        "name": "Banking SETA"
+    },
+    {
+        "id": "INSETA",
+        "name": "Insurance SETA"
+    },
+    {
+        "id": "FASSET",
+        "name": "Finance and Accounting Services SETA"
+    }
+]
