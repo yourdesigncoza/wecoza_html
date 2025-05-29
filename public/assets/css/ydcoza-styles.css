@@ -1,0 +1,264 @@
+@charset "UTF-8";
+
+
+/* -------------------------------------------------------------------------- */
+/* Override theme styles here                                      */
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/* Misc                                     */
+/* -------------------------------------------------------------------------- */
+.ydcoza-w-600 {
+   max-width: 600px;
+}
+/* -------------------------------------------------------------------------- */
+/* Navagation                                    */
+/* -------------------------------------------------------------------------- */
+.page #content,
+.single-app #content {
+    min-height: 100vh;
+    padding: calc(var(--phoenix-navbar-top-height) + 2rem) 4rem 6.375rem 12.5rem;
+    position: relative;
+    padding-bottom: 6rem;
+}
+@media (min-width: 576px) {
+    .page #content,
+    .single-app #content {
+        padding-bottom: 4rem;
+    }
+}
+.navbar-brand {
+  max-width: 160px;
+}
+.navbar-top {
+  padding: var(--ydzoca-nav-padding);
+}
+.page-template-dashboard-template .content {
+    padding-top: 2rem;
+}
+@media (min-width: 992px) {
+    .page-template-dashboard-template .content {
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+        margin-left: 15.875rem;
+        padding-top: 2rem;
+    }
+
+}
+/* choose File Button Styles */
+.ydcoza-upload input[type="file"]::file-selector-button {
+  border: 2px solid #fff;
+  padding: 0.2em 0.4em;
+  border-radius: 0;
+  background-color: #fff !important;
+}
+
+.ydcoza-upload input[type="file"]::file-selector-button:hover {
+  background-color: #fff !important;
+}
+
+/* WebKit fallback */
+.ydcoza-upload input[type="file"]::-webkit-file-upload-button {
+  border: 2px solid #fff;
+  padding: 0.2em 0.4em;
+  border-radius: 0;
+  background-color: #fff !important;
+}
+
+.ydcoza-upload input[type="file"]::-webkit-file-upload-button:hover {
+  background-color: #fff !important;
+}
+html[data-bs-theme="dark"] .ydcoza-upload input[type="file"]::file-selector-button {
+  border: 2px solid var(--phoenix-emphasis-bg);
+  background-color: var(--phoenix-emphasis-bg) !important;
+}
+html[data-bs-theme="dark"] .ydcoza-upload input[type="file"]::file-selector-button:hover {
+  background-color: var(--phoenix-emphasis-bg) !important;
+}
+
+html[data-bs-theme="dark"] .ydcoza-upload input[type="file"]::-webkit-file-upload-button {
+  border: 2px solid var(--phoenix-emphasis-bg);
+  background-color: var(--phoenix-emphasis-bg) !important;
+}
+
+html[data-bs-theme="dark"] .ydcoza-upload input[type="file"]::-webkit-file-upload-button:hover {
+  background-color: var(--phoenix-emphasis-bg) !important;
+}
+
+
+
+
+.menu-item,
+.nav-item {
+  position: relative;
+}
+.menu-item.nav-item i._mi {
+  color: var(--phoenix-navbar-vertical-link-hover-color);
+    width: 16px;
+    height: 16px;
+    margin-top: -.265em;
+    font-size: 1.4em;
+    line-height: 20px;
+    display: inline-block;
+}
+
+li.nav-item i._mi {
+  color: var(--phoenix-navbar-vertical-link-hover-color);
+    width: 23px;
+    height: 16px;
+    margin-top: -.25em;
+    font-size: 1.4em;
+    line-height: 20px;
+    display: inline-block;
+}
+
+/* Smooth rotation transition for the arrow icon */
+.dropdown-indicator-icon {
+    position: absolute;
+    top: 9px;
+    left: 25px;
+    color: var(--phoenix-navbar-vertical-dropdown-indicator-color);
+    transition: transform 0.2s ease;
+}
+/* Rotate the caret icon 90deg (pointing down) when the submenu is expanded */
+.nav-link[aria-expanded="true"] .dropdown-indicator-icon {
+  transform: rotate(90deg);
+}
+
+/* Make the icon+text container a flex row and center them vertically */
+.nav-link-text {
+  display: inline-flex;      /* or just `flex` if block-level is OK */
+  align-items: center;
+  gap: 0.5em;                 /* space between icon and text */
+}
+
+/* (Optional) If you need finer control on the icon itself: */
+.nav-link-text i {
+  display: inline-block;     /* ensures vertical-align rules apply */
+  vertical-align: middle;    /* fallback for non-flex environments */
+  /* margin-right instead of gap if you prefer:
+  margin-right: 0.5em;
+  */
+}
+
+li.nav-item.active a {
+  color: var(--phoenix-navbar-vertical-link-active-color) !important;
+}
+.page .entry-header  h1, .h1 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+}
+.page aside#secondary {
+  display: none;
+}
+
+body .bg-body-tertiary {
+    background-color: transparent !important;
+}
+
+.entry-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.navbar-vertical-footer .support-chat + .btn-support-chat {
+  bottom: 2.5rem;
+  left: 3rem;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  margin-left: -0.5rem;
+}
+
+.breadcrumb a,
+.breadcrumb .current {
+  margin: 0 0.5rem;
+}
+.bd-callout.bd-callout-info {
+  font-size: 0.875rem;
+}
+.support-chat .card-body {
+    height: 24rem
+}
+.ping-icon-wrapper .ping-icon-bg {
+    left: 1px;
+}
+html[data-bs-theme="dark"] .border-success-subtle {
+    border-color: #408650 !important;
+}
+html[data-bs-theme="dark"] .fc.fc-theme-standard .fc-list,
+html[data-bs-theme="dark"] .fc.fc-theme-standard td,
+html[data-bs-theme="dark"] .fc.fc-theme-standard th {
+    border: 1px solid #222834;
+}
+html[data-bs-theme="dark"] .fc .fc-multimonth {
+    border: 1px solid #566485;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* Table "small / compact"                                      */
+/* -------------------------------------------------------------------------- */
+.bootstrap-table .fixed-table-container .table.ydcoza-compact-table tfoot th .th-inner,
+.breadcrumb .fixed-table-container .table.ydcoza-compact-table thead th .th-inner {
+    padding: .5rem .5rem;
+}
+.ydcoza-compact-content,
+.ydcoza-compact-table {
+    font-size: 0.8rem !important;
+    line-height: 0.8rem;
+}
+.ydcoza-compact-table a.detail-icon {
+    font-size: 22px !important;
+}
+.table.ydcoza-compact-table>:not(caption)>*>* {
+    padding: 0 0.25rem
+    /* line-height: 13px !important; */
+}
+.table-responsive {
+    padding: 0.8rem;
+}
+.ydcoza-compact-content .btn-sm,
+.ydcoza-compact-table .btn-sm {
+    padding: 0.2rem 0.5rem;
+    font-size: 12px;
+    line-height: 12px;
+}
+.ydcoza-compact-table .btn-close {
+    background-size: 0.6em;
+}
+.bootstrap-table .pagination-detail {
+    font-size: 14px;
+}
+.table > tbody > tr > td:first-child {
+  padding-left: .5rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Class Schedule Form Styles                                      */
+/* -------------------------------------------------------------------------- */
+.days-checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-check-inline {
+    margin-right: 0;
+}
+
+#day-selection-container .invalid-feedback,
+#day-selection-container .valid-feedback {
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.ydcoza-table-subheader {
+    background-color: var(--phoenix-emphasis-bg);
+}
+.ydcoza-table-subheader th {
+    padding-left: 0.5rem;
+}
