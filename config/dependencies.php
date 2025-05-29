@@ -55,11 +55,19 @@ return function (Container $container) {
             'cache' => $_ENV['APP_ENV'] === 'production' ? __DIR__ . '/../cache/twig' : false,
             'debug' => $_ENV['APP_DEBUG'] === 'true',
         ]);
-        
+
+        // Calculate base path for URLs
+        $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+        $basePath = dirname($scriptName);
+        if ($basePath === '/' || $basePath === '\\') {
+            $basePath = '';
+        }
+
         // Add global variables
         $twig->addGlobal('app_name', $_ENV['APP_NAME']);
         $twig->addGlobal('app_url', $_ENV['APP_URL']);
-        
+        $twig->addGlobal('base_path', $basePath);
+
         return $twig;
     });
 

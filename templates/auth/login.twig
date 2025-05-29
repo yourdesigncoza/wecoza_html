@@ -28,7 +28,7 @@
                 </div>
                 {% endif %}
 
-                <form method="POST" action="/login" class="needs-validation" novalidate>
+                <form method="POST" action="{{ base_path }}/login" class="needs-validation" novalidate>
                     <div class="floating-label mb-3">
                         <input type="text" class="form-control form-control-lg" id="username" name="username" 
                                placeholder=" " value="{{ username|default('') }}" required>
@@ -54,7 +54,7 @@
                                 Remember me
                             </label>
                         </div>
-                        <a href="/forgot-password" class="text-decoration-none">Forgot password?</a>
+                        <a href="{{ base_path }}/forgot-password" class="text-decoration-none">Forgot password?</a>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
@@ -63,8 +63,8 @@
                     </button>
 
                     <div class="text-center">
-                        <p class="mb-0">Don't have an account? 
-                            <a href="/register" class="text-decoration-none">Sign up here</a>
+                        <p class="mb-0">Don't have an account?
+                            <a href="{{ base_path }}/register" class="text-decoration-none">Sign up here</a>
                         </p>
                     </div>
                 </form>

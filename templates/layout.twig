@@ -11,87 +11,14 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Custom CSS File -->
-    <link href="/assets/css/custom.css" rel="stylesheet">
-
-    <!-- Inline Custom CSS -->
-    <style>
-        .floating-label {
-            position: relative;
-        }
-        
-        .floating-label input,
-        .floating-label select,
-        .floating-label textarea {
-            padding-top: 1.625rem;
-            padding-bottom: 0.625rem;
-        }
-        
-        .floating-label label {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            padding: 1rem 0.75rem;
-            pointer-events: none;
-            border: 1px solid transparent;
-            transform-origin: 0 0;
-            transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
-        }
-        
-        .floating-label input:focus ~ label,
-        .floating-label input:not(:placeholder-shown) ~ label,
-        .floating-label select:focus ~ label,
-        .floating-label select:not([value=""]) ~ label,
-        .floating-label textarea:focus ~ label,
-        .floating-label textarea:not(:placeholder-shown) ~ label {
-            opacity: 0.65;
-            transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
-        }
-        
-        .section-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem;
-            margin: 1.5rem 0 1rem 0;
-            border-radius: 0.5rem;
-            font-weight: 600;
-        }
-        
-        .form-section {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .navbar-brand {
-            font-weight: 700;
-        }
-        
-        .sidebar {
-            min-height: calc(100vh - 56px);
-            background: #f8f9fa;
-            border-right: 1px solid #dee2e6;
-        }
-        
-        .main-content {
-            padding: 2rem;
-        }
-        
-        .error-message {
-            color: #dc3545;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-        }
-        
-        .success-message {
-            color: #198754;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-        }
-    </style>
+    <!-- Line Icons -->
+    <link href="{{ base_path }}/assets/css/line.css" rel="stylesheet">
+    <!-- bootstrap demo -->
+    <link href="{{ base_path }}/assets/css/ydcoza-bootstrap-demo.css" rel="stylesheet">
+    <!-- Theme -->
+    <link href="{{ base_path }}/assets/css/ydcoza-theme.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ base_path }}/assets/css/ydcoza-styles.css" rel="stylesheet">
     
     {% block head %}{% endblock %}
 </head>
@@ -99,7 +26,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="{{ base_path }}/">
                 <i class="bi bi-mortarboard-fill me-2"></i>
                 {{ app_name }}
             </a>
@@ -111,19 +38,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/dashboard">
+                        <a class="nav-link" href="{{ base_path }}/dashboard">
                             <i class="bi bi-speedometer2 me-1"></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/classes">
+                        <a class="nav-link" href="{{ base_path }}/classes">
                             <i class="bi bi-collection me-1"></i>
                             Classes
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/classes/create">
+                        <a class="nav-link" href="{{ base_path }}/classes/create">
                             <i class="bi bi-plus-circle me-1"></i>
                             Create Class
                         </a>
@@ -137,10 +64,10 @@
                             User
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ base_path }}/profile">Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
-                                <form method="POST" action="/logout" class="d-inline">
+                                <form method="POST" action="{{ base_path }}/logout" class="d-inline">
                                     <button type="submit" class="dropdown-item">Logout</button>
                                 </form>
                             </li>
@@ -159,15 +86,15 @@
             <div class="col-md-2 sidebar p-3">
                 <h6 class="text-muted mb-3">Quick Actions</h6>
                 <div class="list-group list-group-flush">
-                    <a href="/classes" class="list-group-item list-group-item-action">
+                    <a href="{{ base_path }}/classes" class="list-group-item list-group-item-action">
                         <i class="bi bi-list me-2"></i>
                         View All Classes
                     </a>
-                    <a href="/classes/create" class="list-group-item list-group-item-action">
+                    <a href="{{ base_path }}/classes/create" class="list-group-item list-group-item-action">
                         <i class="bi bi-plus me-2"></i>
                         Create New Class
                     </a>
-                    <a href="/dashboard" class="list-group-item list-group-item-action">
+                    <a href="{{ base_path }}/dashboard" class="list-group-item list-group-item-action">
                         <i class="bi bi-graph-up me-2"></i>
                         Dashboard
                     </a>
@@ -175,11 +102,11 @@
                 
                 <h6 class="text-muted mb-3 mt-4">Reports</h6>
                 <div class="list-group list-group-flush">
-                    <a href="/classes/export/csv" class="list-group-item list-group-item-action">
+                    <a href="{{ base_path }}/classes/export/csv" class="list-group-item list-group-item-action">
                         <i class="bi bi-file-earmark-spreadsheet me-2"></i>
                         Export CSV
                     </a>
-                    <a href="/classes/export/pdf" class="list-group-item list-group-item-action">
+                    <a href="{{ base_path }}/classes/export/pdf" class="list-group-item list-group-item-action">
                         <i class="bi bi-file-earmark-pdf me-2"></i>
                         Export PDF
                     </a>

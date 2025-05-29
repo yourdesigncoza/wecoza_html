@@ -30,7 +30,8 @@ class HomeController
      */
     public function index(Request $request, Response $response): Response
     {
-        return $response->withHeader('Location', '/dashboard')->withStatus(302);
+        // Use relative redirect to dashboard
+        return $response->withHeader('Location', 'dashboard')->withStatus(302);
     }
 
     /**
@@ -39,32 +40,19 @@ class HomeController
     public function dashboard(Request $request, Response $response): Response
     {
         try {
-            // Get dashboard statistics
-            $stats = $this->classService->getDashboardStatistics();
-            
-            // Get recent classes (last 10)
-            $recentClasses = $this->classService->getAllClasses([], 10, 0);
-            
-            // Get upcoming classes
-            $upcomingClasses = $this->classService->getUpcomingClasses();
-            
-            // Get reference data for display
-            $clients = $this->localDataService->getClients();
-            $agents = $this->localDataService->getAgents();
-            $supervisors = $this->localDataService->getSupervisors();
-            
-            // Create lookup arrays for easy reference
-            $clientLookup = array_column($clients, 'name', 'id');
-            $agentLookup = array_column($agents, 'name', 'id');
-            $supervisorLookup = array_column($supervisors, 'name', 'id');
-
+            // For now, let's test with minimal data to isolate the issue
             $html = $this->twig->render('dashboard.twig', [
-                'stats' => $stats,
-                'recent_classes' => $recentClasses,
-                'upcoming_classes' => $upcomingClasses,
-                'client_lookup' => $clientLookup,
-                'agent_lookup' => $agentLookup,
-                'supervisor_lookup' => $supervisorLookup,
+                'stats' => [
+                    'total_classes' => 0,
+                    'active_classes' => 0,
+                    'completed_classes' => 0,
+                    'upcoming_classes' => 0
+                ],
+                'recent_classes' => [],
+                'upcoming_classes' => [],
+                'client_lookup' => [],
+                'agent_lookup' => [],
+                'supervisor_lookup' => [],
             ]);
 
             $response->getBody()->write($html);
@@ -73,13 +61,9 @@ class HomeController
         } catch (\Exception $e) {
             // Log error and show error page
             error_log('Dashboard error: ' . $e->getMessage());
-            
-            $html = $this->twig->render('error.twig', [
-                'error_message' => 'Unable to load dashboard data. Please try again later.',
-                'error_details' => $_ENV['APP_DEBUG'] === 'true' ? $e->getMessage() : null,
-            ]);
 
-            $response->getBody()->write($html);
+            // For debugging, let's show a simple error message
+            $response->getBody()->write('<h1>Dashboard Error</h1><p>' . htmlspecialchars($e->getMessage()) . '</p><pre>' . htmlspecialchars($e->getTraceAsString()) . '</pre>');
             return $response->withStatus(500);
         }
     }

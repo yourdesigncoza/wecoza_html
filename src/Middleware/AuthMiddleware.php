@@ -20,8 +20,12 @@ class AuthMiddleware implements MiddlewareInterface
         // Check if user is authenticated
         if (!isset($_SESSION['user_id'])) {
             // Redirect to login page
+            $basePath = dirname($_SERVER['SCRIPT_NAME'] ?? '');
+            if ($basePath === '/' || $basePath === '\\') {
+                $basePath = '';
+            }
             $response = new \Slim\Psr7\Response();
-            return $response->withHeader('Location', '/login')->withStatus(302);
+            return $response->withHeader('Location', $basePath . '/login')->withStatus(302);
         }
         
         // Add user info to request attributes for use in controllers

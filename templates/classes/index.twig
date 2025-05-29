@@ -9,7 +9,7 @@
         Classes
     </h1>
     <div>
-        <a href="/classes/create" class="btn btn-primary">
+        <a href="{{ base_path }}/classes/create" class="btn btn-primary">
             <i class="bi bi-plus-circle me-1"></i>
             Create New Class
         </a>
@@ -25,7 +25,7 @@
         </h6>
     </div>
     <div class="card-body">
-        <form method="GET" action="/classes" class="row g-3">
+        <form method="GET" action="{{ base_path }}/classes" class="row g-3">
             <div class="col-md-3">
                 <label for="client_id" class="form-label">Client</label>
                 <select class="form-select" id="client_id" name="client_id">
@@ -78,7 +78,7 @@
                     <i class="bi bi-funnel me-1"></i>
                     Apply Filters
                 </button>
-                <a href="/classes" class="btn btn-outline-secondary">
+                <a href="{{ base_path }}/classes" class="btn btn-outline-secondary">
                     <i class="bi bi-x-circle me-1"></i>
                     Clear Filters
                 </a>
@@ -97,11 +97,11 @@
             {% endif %}
         </h6>
         <div class="btn-group" role="group">
-            <a href="/classes/export/csv" class="btn btn-sm btn-outline-success">
+            <a href="{{ base_path }}/classes/export/csv" class="btn btn-sm btn-outline-success">
                 <i class="bi bi-download me-1"></i>
                 CSV
             </a>
-            <a href="/classes/export/pdf" class="btn btn-sm btn-outline-danger">
+            <a href="{{ base_path }}/classes/export/pdf" class="btn btn-sm btn-outline-danger">
                 <i class="bi bi-file-pdf me-1"></i>
                 PDF
             </a>
@@ -128,7 +128,7 @@
                     {% for class in classes %}
                     <tr>
                         <td>
-                            <a href="/classes/{{ class.classId }}" class="text-decoration-none fw-bold">
+                            <a href="{{ base_path }}/classes/{{ class.classId }}" class="text-decoration-none fw-bold">
                                 {{ class.classCode }}
                             </a>
                         </td>
@@ -168,13 +168,13 @@
                         </td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a href="/classes/{{ class.classId }}" class="btn btn-sm btn-outline-primary" title="View">
+                                <a href="{{ base_path }}/classes/{{ class.classId }}" class="btn btn-sm btn-outline-primary" title="View">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                <a href="/classes/{{ class.classId }}/edit" class="btn btn-sm btn-outline-secondary" title="Edit">
+                                <a href="{{ base_path }}/classes/{{ class.classId }}/edit" class="btn btn-sm btn-outline-secondary" title="Edit">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <button type="button" class="btn btn-sm btn-outline-danger" 
+                                <button type="button" class="btn btn-sm btn-outline-danger"
                                         onclick="confirmDelete({{ class.classId }}, '{{ class.classCode }}')" title="Delete">
                                     <i class="bi bi-trash"></i>
                                 </button>
@@ -223,11 +223,11 @@
             <h4 class="mt-3 text-muted">No Classes Found</h4>
             {% if filters %}
             <p class="text-muted">Try adjusting your filters or search terms.</p>
-            <a href="/classes" class="btn btn-outline-secondary me-2">Clear Filters</a>
+            <a href="{{ base_path }}/classes" class="btn btn-outline-secondary me-2">Clear Filters</a>
             {% else %}
             <p class="text-muted">Get started by creating your first class.</p>
             {% endif %}
-            <a href="/classes/create" class="btn btn-primary">
+            <a href="{{ base_path }}/classes/create" class="btn btn-primary">
                 <i class="bi bi-plus-circle me-1"></i>
                 Create New Class
             </a>
@@ -266,8 +266,8 @@
 <script>
 function confirmDelete(classId, className) {
     document.getElementById('deleteClassName').textContent = className;
-    document.getElementById('deleteForm').action = '/classes/' + classId + '/delete';
-    
+    document.getElementById('deleteForm').action = '{{ base_path }}/classes/' + classId + '/delete';
+
     const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
     modal.show();
 }

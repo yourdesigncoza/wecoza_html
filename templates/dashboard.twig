@@ -9,7 +9,7 @@
         Dashboard
     </h1>
     <div>
-        <a href="/classes/create" class="btn btn-primary">
+        <a href="{{ base_path }}/classes/create" class="btn btn-primary">
             <i class="bi bi-plus-circle me-1"></i>
             Create New Class
         </a>
@@ -84,7 +84,7 @@
                     <i class="bi bi-clock-history me-2"></i>
                     Recent Classes
                 </h5>
-                <a href="/classes" class="btn btn-sm btn-outline-primary">View All</a>
+                <a href="{{ base_path }}/classes" class="btn btn-sm btn-outline-primary">View All</a>
             </div>
             <div class="card-body">
                 {% if recent_classes %}
@@ -104,7 +104,7 @@
                             {% for class in recent_classes %}
                             <tr>
                                 <td>
-                                    <a href="/classes/{{ class.classId }}" class="text-decoration-none">
+                                    <a href="{{ base_path }}/classes/{{ class.classId }}" class="text-decoration-none">
                                         <strong>{{ class.classCode }}</strong>
                                     </a>
                                 </td>
@@ -131,7 +131,7 @@
                 <div class="text-center py-4">
                     <i class="bi bi-inbox" style="font-size: 3rem; color: #dee2e6;"></i>
                     <p class="text-muted mt-2">No classes found</p>
-                    <a href="/classes/create" class="btn btn-primary">Create Your First Class</a>
+                    <a href="{{ base_path }}/classes/create" class="btn btn-primary">Create Your First Class</a>
                 </div>
                 {% endif %}
             </div>
@@ -187,7 +187,7 @@
                     
                     {% if upcoming_classes|length > 5 %}
                     <div class="text-center mt-3">
-                        <a href="/classes?filter=upcoming" class="btn btn-sm btn-outline-primary">
+                        <a href="{{ base_path }}/classes?filter=upcoming" class="btn btn-sm btn-outline-primary">
                             View All ({{ upcoming_classes|length }})
                         </a>
                     </div>
@@ -216,25 +216,25 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-3">
-                        <a href="/classes/create" class="btn btn-outline-primary w-100 mb-2">
+                        <a href="{{ base_path }}/classes/create" class="btn btn-outline-primary w-100 mb-2">
                             <i class="bi bi-plus-circle me-2"></i>
                             Create New Class
                         </a>
                     </div>
                     <div class="col-md-3">
-                        <a href="/classes" class="btn btn-outline-secondary w-100 mb-2">
+                        <a href="{{ base_path }}/classes" class="btn btn-outline-secondary w-100 mb-2">
                             <i class="bi bi-list me-2"></i>
                             View All Classes
                         </a>
                     </div>
                     <div class="col-md-3">
-                        <a href="/classes/export/csv" class="btn btn-outline-success w-100 mb-2">
+                        <a href="{{ base_path }}/classes/export/csv" class="btn btn-outline-success w-100 mb-2">
                             <i class="bi bi-download me-2"></i>
                             Export Data
                         </a>
                     </div>
                     <div class="col-md-3">
-                        <a href="/reports" class="btn btn-outline-info w-100 mb-2">
+                        <a href="{{ base_path }}/reports" class="btn btn-outline-info w-100 mb-2">
                             <i class="bi bi-graph-up me-2"></i>
                             View Reports
                         </a>

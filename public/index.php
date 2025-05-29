@@ -25,13 +25,23 @@ $dependencies($container);
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
+// Set base path for the application
+// For LAMPP setup, we need to detect the base path dynamically
+$requestUri = $_SERVER['REQUEST_URI'] ?? '';
+$scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+$basePath = dirname($scriptName);
+if ($basePath === '/' || $basePath === '\\') {
+    $basePath = '';
+}
+$app->setBasePath($basePath);
+
 // Add middleware
 $app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware();
 
-// Add custom middleware
-$app->add(new CorsMiddleware());
-$app->add(new CSRFMiddleware());
+// Temporarily disable custom middleware for debugging
+// $app->add(new CorsMiddleware());
+// $app->add(new CSRFMiddleware());
 
 // Add routes
 $routes = require_once __DIR__ . '/../config/routes.php';

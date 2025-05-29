@@ -27,7 +27,11 @@ class AuthController
         // If already logged in, redirect to dashboard
         session_start();
         if (isset($_SESSION['user_id'])) {
-            return $response->withHeader('Location', '/dashboard')->withStatus(302);
+            $basePath = dirname($_SERVER['SCRIPT_NAME'] ?? '');
+            if ($basePath === '/' || $basePath === '\\') {
+                $basePath = '';
+            }
+            return $response->withHeader('Location', $basePath . '/dashboard')->withStatus(302);
         }
 
         $html = $this->twig->render('auth/login.twig', [
@@ -59,7 +63,11 @@ class AuthController
                 $_SESSION['user_role'] = $user['role'];
                 
                 // Redirect to dashboard
-                return $response->withHeader('Location', '/dashboard')->withStatus(302);
+                $basePath = dirname($_SERVER['SCRIPT_NAME'] ?? '');
+                if ($basePath === '/' || $basePath === '\\') {
+                    $basePath = '';
+                }
+                return $response->withHeader('Location', $basePath . '/dashboard')->withStatus(302);
             } else {
                 // Invalid credentials
                 $html = $this->twig->render('auth/login.twig', [
@@ -93,8 +101,12 @@ class AuthController
     {
         session_start();
         session_destroy();
-        
-        return $response->withHeader('Location', '/login')->withStatus(302);
+
+        $basePath = dirname($_SERVER['SCRIPT_NAME'] ?? '');
+        if ($basePath === '/' || $basePath === '\\') {
+            $basePath = '';
+        }
+        return $response->withHeader('Location', $basePath . '/login')->withStatus(302);
     }
 
     /**
@@ -105,7 +117,11 @@ class AuthController
         // If already logged in, redirect to dashboard
         session_start();
         if (isset($_SESSION['user_id'])) {
-            return $response->withHeader('Location', '/dashboard')->withStatus(302);
+            $basePath = dirname($_SERVER['SCRIPT_NAME'] ?? '');
+            if ($basePath === '/' || $basePath === '\\') {
+                $basePath = '';
+            }
+            return $response->withHeader('Location', $basePath . '/dashboard')->withStatus(302);
         }
 
         $html = $this->twig->render('auth/register.twig', [
@@ -200,7 +216,11 @@ class AuthController
                 $_SESSION['user_role'] = $user['role'];
                 
                 // Redirect to dashboard
-                return $response->withHeader('Location', '/dashboard')->withStatus(302);
+                $basePath = dirname($_SERVER['SCRIPT_NAME'] ?? '');
+                if ($basePath === '/' || $basePath === '\\') {
+                    $basePath = '';
+                }
+                return $response->withHeader('Location', $basePath . '/dashboard')->withStatus(302);
             } else {
                 throw new \Exception('Failed to create user');
             }
