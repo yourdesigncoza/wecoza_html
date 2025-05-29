@@ -104,3 +104,9 @@ development.config.php
 
 # Project documentation and reference files
 /PRD/
+
+# Test and debug files
+public/db_test.php
+public/debug.php
+public/minimal_test.php
+public/test.php
