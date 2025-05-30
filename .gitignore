@@ -104,6 +104,7 @@ development.config.php
 
 # Project documentation and reference files
 /PRD/
+/sneat-1.0.0/
 
 # Test and debug files
 public/db_test.php

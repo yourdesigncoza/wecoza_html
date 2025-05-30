@@ -2,310 +2,348 @@
 
 {% block title %}Create New Class - {{ parent() }}{% endblock %}
 
+{% block breadcrumb_current %}Create New Class{% endblock %}
+
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h2">
+<div class="entry-header">
+    <h1 class="entry-title">
         <i class="bi bi-plus-circle me-2"></i>
         Create New Class
     </h1>
-    <a href="{{ base_path }}/classes" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-left me-1"></i>
-        Back to Classes
-    </a>
 </div>
 
-{% if errors %}
-<div class="alert alert-danger" role="alert">
-    <h6 class="alert-heading">Please correct the following errors:</h6>
-    <ul class="mb-0">
-        {% for field, error in errors %}
-            <li>{{ error }}</li>
-        {% endfor %}
-    </ul>
+<div class="entry-content">
+
+    <!-- Classes Capture Form -->
+    {% if errors %}
+    <div class="alert alert-danger" role="alert">
+        <h6 class="alert-heading">Please correct the following errors:</h6>
+        <ul class="mb-0">
+            {% for field, error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <form id="classes-form" class="needs-validation ydcoza-compact-form" novalidate method="POST" action="{{ base_path }}/classes/create" enctype="multipart/form-data">
+        <!-- Hidden Auto-generated Class ID -->
+        <input type="hidden" id="class_id" name="class_id" value="auto-generated">
+        <input type="hidden" id="redirect_url" name="redirect_url" value="">
+
+        <!-- ===== Section: Basic Details ===== -->
+        <div class="container container-md classes-form ps-0">
+            <!-- ===== Section 1: Client & Site Information ===== -->
+            <div class="section-header mb-3">
+                <h3 class="d-flex align-items-center mb-0">
+                    <i class="bi bi-building me-2 text-primary"></i>
+                    <span class="badge bg-primary me-2">1</span>
+                    Client & Site Information
+                </h3>
+            </div>
+            <div class="form-section bg-light p-4 rounded mb-4">
+                <div class="row">
+                    <!-- Client Name (ID) -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <select id="client_id" name="client_id" class="form-select" required>
+                                <option value="">Select</option>
+                                {% for client in form_data.clients %}
+                                    <option value="{{ client.id }}" {{ form_values.client_id == client.id ? 'selected' : '' }}>
+                                        {{ client.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <label for="client_id">Client Name (ID) <span class="text-danger">*</span></label>
+                            {% if errors.client_id %}
+                                <div class="invalid-feedback">{{ errors.client_id }}</div>
+                            {% endif %}
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                    </div>
+
+                    <!-- Class/Site Name -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <select id="site_id" name="site_id" class="form-select" required>
+                                <option value="">Select Site</option>
+                                <!-- Sites will be populated via JavaScript based on client selection -->
+                            </select>
+                            <label for="site_id">Select Site</label>
+                            <div class="invalid-feedback">Please select a site.</div>
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="class_address_line" name="class_address_line"
+                                   placeholder=" " value="{{ form_values.class_address_line|default('') }}">
+                            <label for="class_address_line">Class Address</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Section 2: Class Information ===== -->
+            <div class="section-header mb-3">
+                <h3 class="d-flex align-items-center mb-0">
+                    <i class="bi bi-book me-2 text-primary"></i>
+                    <span class="badge bg-primary me-2">2</span>
+                    Class Information
+                </h3>
+            </div>
+            <div class="form-section bg-light p-4 rounded mb-4">
+                <div class="row">
+                    <!-- Class Type -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <select id="class_type" name="class_type" class="form-select" required>
+                                <option value="">Select Class Type</option>
+                                {% for type in form_data.class_types %}
+                                    <option value="{{ type.id }}" {{ form_values.class_type == type.id ? 'selected' : '' }}>
+                                        {{ type.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <label for="class_type">Class Type <span class="text-danger">*</span></label>
+                            {% if errors.class_type %}
+                                <div class="invalid-feedback">{{ errors.class_type }}</div>
+                            {% endif %}
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                    </div>
+
+                    <!-- Class Subject -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <select id="class_subject" name="class_subject" class="form-select" required>
+                                <option value="">Select Class Subject</option>
+                                <!-- Subjects will be populated via JavaScript based on class type -->
+                            </select>
+                            <label for="class_subject">Class Subject <span class="text-danger">*</span></label>
+                            {% if errors.class_subject %}
+                                <div class="invalid-feedback">{{ errors.class_subject }}</div>
+                            {% endif %}
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Class Code -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="class_code" name="class_code"
+                                   placeholder=" " value="{{ form_values.class_code|default('') }}" required>
+                            <label for="class_code">Class Code <span class="text-danger">*</span></label>
+                            {% if errors.class_code %}
+                                <div class="invalid-feedback">{{ errors.class_code }}</div>
+                            {% endif %}
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                    </div>
+
+                    <!-- Duration (Days) -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" id="class_duration" name="class_duration"
+                                   placeholder=" " value="{{ form_values.class_duration|default('') }}" required>
+                            <label for="class_duration">Duration (Days) <span class="text-danger">*</span></label>
+                            {% if errors.class_duration %}
+                                <div class="invalid-feedback">{{ errors.class_duration }}</div>
+                            {% endif %}
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Section 3: Schedule Information ===== -->
+            <div class="section-header mb-3">
+                <h3 class="d-flex align-items-center mb-0">
+                    <i class="bi bi-calendar me-2 text-primary"></i>
+                    <span class="badge bg-primary me-2">3</span>
+                    Schedule Information
+                </h3>
+            </div>
+            <div class="form-section bg-light p-4 rounded mb-4">
+                <div class="row">
+                    <!-- Start Date -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <input type="date" class="form-control" id="original_start_date" name="original_start_date"
+                                   placeholder=" " value="{{ form_values.original_start_date|default('') }}" required>
+                            <label for="original_start_date">Start Date <span class="text-danger">*</span></label>
+                            {% if errors.original_start_date %}
+                                <div class="invalid-feedback">{{ errors.original_start_date }}</div>
+                            {% endif %}
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Date -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <input type="date" class="form-control" id="delivery_date" name="delivery_date"
+                                   placeholder=" " value="{{ form_values.delivery_date|default('') }}">
+                            <label for="delivery_date">Delivery Date</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- QA Visit Dates -->
+                    <div class="col-12 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="qa_visit_dates" name="qa_visit_dates"
+                                   placeholder=" " value="{{ form_values.qa_visit_dates|default('') }}">
+                            <label for="qa_visit_dates">QA Visit Dates</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Section 4: Funding & Exams ===== -->
+            <div class="section-header mb-3">
+                <h3 class="d-flex align-items-center mb-0">
+                    <i class="bi bi-cash-coin me-2 text-primary"></i>
+                    <span class="badge bg-primary me-2">4</span>
+                    Funding & Exams
+                </h3>
+            </div>
+            <div class="form-section bg-light p-4 rounded mb-4">
+                <div class="row">
+                    <!-- SETA Funded -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <select id="seta_funded" name="seta_funded" class="form-select">
+                                <option value="">Select Option</option>
+                                {% for option in form_data.yes_no_options %}
+                                    <option value="{{ option.value }}" {{ form_values.seta_funded == option.value ? 'selected' : '' }}>
+                                        {{ option.label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <label for="seta_funded">SETA Funded</label>
+                        </div>
+                    </div>
+
+                    <!-- SETA -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <select id="seta" name="seta" class="form-select">
+                                <option value="">Select SETA</option>
+                                {% for seta in form_data.setas %}
+                                    <option value="{{ seta.id }}" {{ form_values.seta == seta.id ? 'selected' : '' }}>
+                                        {{ seta.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <label for="seta">SETA</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Exam Class -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <select id="exam_class" name="exam_class" class="form-select">
+                                <option value="">Select Option</option>
+                                {% for option in form_data.yes_no_options %}
+                                    <option value="{{ option.value }}" {{ form_values.exam_class == option.value ? 'selected' : '' }}>
+                                        {{ option.label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <label for="exam_class">Exam Class</label>
+                        </div>
+                    </div>
+
+                    <!-- Exam Type -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <select id="exam_type" name="exam_type" class="form-select">
+                                <option value="">Select Exam Type</option>
+                                {% for type in form_data.exam_types %}
+                                    <option value="{{ type }}" {{ form_values.exam_type == type ? 'selected' : '' }}>
+                                        {{ type }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <label for="exam_type">Exam Type</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Section 5: Staffing ===== -->
+            <div class="section-header mb-3">
+                <h3 class="d-flex align-items-center mb-0">
+                    <i class="bi bi-people me-2 text-primary"></i>
+                    <span class="badge bg-primary me-2">5</span>
+                    Staffing
+                </h3>
+            </div>
+            <div class="form-section bg-light p-4 rounded mb-4">
+                <div class="row">
+                    <!-- Class Agent -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <select id="class_agent" name="class_agent" class="form-select" required>
+                                <option value="">Select Agent</option>
+                                {% for agent in form_data.agents %}
+                                    <option value="{{ agent.id }}" {{ form_values.class_agent == agent.id ? 'selected' : '' }}>
+                                        {{ agent.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <label for="class_agent">Select Agent</label>
+                            {% if errors.class_agent %}
+                                <div class="invalid-feedback">{{ errors.class_agent }}</div>
+                            {% endif %}
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                    </div>
+
+                    <!-- Project Supervisor -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <select id="project_supervisor_id" name="project_supervisor_id" class="form-select" required>
+                                <option value="">Select Supervisor</option>
+                                {% for supervisor in form_data.supervisors %}
+                                    <option value="{{ supervisor.id }}" {{ form_values.project_supervisor_id == supervisor.id ? 'selected' : '' }}>
+                                        {{ supervisor.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <label for="project_supervisor_id">Select Supervisor</label>
+                            {% if errors.project_supervisor_id %}
+                                <div class="invalid-feedback">{{ errors.project_supervisor_id }}</div>
+                            {% endif %}
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <a href="{{ base_path }}/classes" class="btn btn-outline-secondary">
+                    <i class="bi bi-x-circle me-1"></i>
+                    Cancel
+                </a>
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="bi bi-check-circle me-1"></i>
+                    Create Class
+                </button>
+            </div>
+        </div>
+    </form>
 </div>
-{% endif %}
-
-<form method="POST" action="{{ base_path }}/classes/create" class="needs-validation" novalidate>
-    <!-- Section 1: Client/Site Information -->
-    <div class="section-header">
-        <i class="bi bi-building me-2"></i>
-        1. Client & Site Information
-    </div>
-    <div class="form-section">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <select class="form-select" id="client_id" name="client_id" required>
-                        <option value="">Select Client</option>
-                        {% for client in form_data.clients %}
-                            <option value="{{ client.id }}" {{ form_values.client_id == client.id ? 'selected' : '' }}>
-                                {{ client.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <label for="client_id">Client *</label>
-                    {% if errors.client_id %}
-                        <div class="error-message">{{ errors.client_id }}</div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <select class="form-select" id="site_id" name="site_id">
-                        <option value="">Select Site</option>
-                        <!-- Sites will be populated via JavaScript based on client selection -->
-                    </select>
-                    <label for="site_id">Site</label>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="floating-label mb-3">
-                    <input type="text" class="form-control" id="class_address_line" name="class_address_line" 
-                           placeholder=" " value="{{ form_values.class_address_line|default('') }}">
-                    <label for="class_address_line">Class Address</label>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Section 2: Class Information -->
-    <div class="section-header">
-        <i class="bi bi-book me-2"></i>
-        2. Class Information
-    </div>
-    <div class="form-section">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <select class="form-select" id="class_type" name="class_type" required>
-                        <option value="">Select Class Type</option>
-                        {% for type in form_data.class_types %}
-                            <option value="{{ type.id }}" {{ form_values.class_type == type.id ? 'selected' : '' }}>
-                                {{ type.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <label for="class_type">Class Type *</label>
-                    {% if errors.class_type %}
-                        <div class="error-message">{{ errors.class_type }}</div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <select class="form-select" id="class_subject" name="class_subject" required>
-                        <option value="">Select Class Subject</option>
-                        <!-- Subjects will be populated via JavaScript based on class type -->
-                    </select>
-                    <label for="class_subject">Class Subject *</label>
-                    {% if errors.class_subject %}
-                        <div class="error-message">{{ errors.class_subject }}</div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <input type="text" class="form-control" id="class_code" name="class_code" 
-                           placeholder=" " value="{{ form_values.class_code|default('') }}" required>
-                    <label for="class_code">Class Code *</label>
-                    {% if errors.class_code %}
-                        <div class="error-message">{{ errors.class_code }}</div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <input type="number" class="form-control" id="class_duration" name="class_duration" 
-                           placeholder=" " value="{{ form_values.class_duration|default('') }}" min="1" max="365" required>
-                    <label for="class_duration">Duration (Days) *</label>
-                    {% if errors.class_duration %}
-                        <div class="error-message">{{ errors.class_duration }}</div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Section 3: Schedule Information -->
-    <div class="section-header">
-        <i class="bi bi-calendar me-2"></i>
-        3. Schedule Information
-    </div>
-    <div class="form-section">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <input type="date" class="form-control" id="original_start_date" name="original_start_date" 
-                           placeholder=" " value="{{ form_values.original_start_date|default('') }}" required>
-                    <label for="original_start_date">Start Date *</label>
-                    {% if errors.original_start_date %}
-                        <div class="error-message">{{ errors.original_start_date }}</div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <input type="date" class="form-control" id="delivery_date" name="delivery_date" 
-                           placeholder=" " value="{{ form_values.delivery_date|default('') }}">
-                    <label for="delivery_date">Delivery Date</label>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="floating-label mb-3">
-                    <input type="text" class="form-control" id="qa_visit_dates" name="qa_visit_dates" 
-                           placeholder=" " value="{{ form_values.qa_visit_dates|default('') }}">
-                    <label for="qa_visit_dates">QA Visit Dates</label>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Section 4: Funding & Exams -->
-    <div class="section-header">
-        <i class="bi bi-cash-coin me-2"></i>
-        4. Funding & Exams
-    </div>
-    <div class="form-section">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <select class="form-select" id="seta_funded" name="seta_funded">
-                        <option value="">Select Option</option>
-                        {% for option in form_data.yes_no_options %}
-                            <option value="{{ option.value }}" {{ form_values.seta_funded == option.value ? 'selected' : '' }}>
-                                {{ option.label }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <label for="seta_funded">SETA Funded</label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <select class="form-select" id="seta" name="seta">
-                        <option value="">Select SETA</option>
-                        {% for seta in form_data.setas %}
-                            <option value="{{ seta.id }}" {{ form_values.seta == seta.id ? 'selected' : '' }}>
-                                {{ seta.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <label for="seta">SETA</label>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <select class="form-select" id="exam_class" name="exam_class">
-                        <option value="">Select Option</option>
-                        {% for option in form_data.yes_no_options %}
-                            <option value="{{ option.value }}" {{ form_values.exam_class == option.value ? 'selected' : '' }}>
-                                {{ option.label }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <label for="exam_class">Exam Class</label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <select class="form-select" id="exam_type" name="exam_type">
-                        <option value="">Select Exam Type</option>
-                        {% for type in form_data.exam_types %}
-                            <option value="{{ type }}" {{ form_values.exam_type == type ? 'selected' : '' }}>
-                                {{ type }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <label for="exam_type">Exam Type</label>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Section 5: Staffing -->
-    <div class="section-header">
-        <i class="bi bi-people me-2"></i>
-        5. Staffing
-    </div>
-    <div class="form-section">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <select class="form-select" id="class_agent" name="class_agent" required>
-                        <option value="">Select Agent</option>
-                        {% for agent in form_data.agents %}
-                            <option value="{{ agent.id }}" {{ form_values.class_agent == agent.id ? 'selected' : '' }}>
-                                {{ agent.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <label for="class_agent">Class Agent *</label>
-                    {% if errors.class_agent %}
-                        <div class="error-message">{{ errors.class_agent }}</div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <select class="form-select" id="project_supervisor_id" name="project_supervisor_id" required>
-                        <option value="">Select Supervisor</option>
-                        {% for supervisor in form_data.supervisors %}
-                            <option value="{{ supervisor.id }}" {{ form_values.project_supervisor_id == supervisor.id ? 'selected' : '' }}>
-                                {{ supervisor.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <label for="project_supervisor_id">Project Supervisor *</label>
-                    {% if errors.project_supervisor_id %}
-                        <div class="error-message">{{ errors.project_supervisor_id }}</div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <select class="form-select" id="initial_class_agent" name="initial_class_agent">
-                        <option value="">Select Initial Agent</option>
-                        {% for agent in form_data.agents %}
-                            <option value="{{ agent.id }}" {{ form_values.initial_class_agent == agent.id ? 'selected' : '' }}>
-                                {{ agent.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <label for="initial_class_agent">Initial Class Agent</label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="floating-label mb-3">
-                    <input type="date" class="form-control" id="initial_agent_start_date" name="initial_agent_start_date" 
-                           placeholder=" " value="{{ form_values.initial_agent_start_date|default('') }}">
-                    <label for="initial_agent_start_date">Initial Agent Start Date</label>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Form Actions -->
-    <div class="d-flex justify-content-between align-items-center mt-4">
-        <a href="{{ base_path }}/classes" class="btn btn-outline-secondary">
-            <i class="bi bi-x-circle me-1"></i>
-            Cancel
-        </a>
-        <button type="submit" class="btn btn-primary btn-lg">
-            <i class="bi bi-check-circle me-1"></i>
-            Create Class
-        </button>
-    </div>
-</form>
 {% endblock %}
 
 {% block scripts %}

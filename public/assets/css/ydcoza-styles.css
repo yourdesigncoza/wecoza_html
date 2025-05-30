@@ -27,9 +27,7 @@
         padding-bottom: 4rem;
     }
 }
-.navbar-brand {
-  max-width: 160px;
-}
+
 .navbar-top {
   padding: var(--ydzoca-nav-padding);
 }
@@ -261,4 +259,413 @@ html[data-bs-theme="dark"] .fc .fc-multimonth {
 }
 .ydcoza-table-subheader th {
     padding-left: 0.5rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* WordPress Admin Bar Styles                                      */
+/* -------------------------------------------------------------------------- */
+#wpadminbar {
+    background: #23282d;
+    color: #eee;
+    font: normal 13px/32px "Open Sans", sans-serif;
+    height: 32px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-width: 600px;
+    z-index: 99999;
+}
+
+#wpadminbar .ab-top-menu {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#wpadminbar .ab-top-menu > li {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+#wpadminbar .ab-item {
+    display: block;
+    padding: 0 10px;
+    color: #eee;
+    text-decoration: none;
+    line-height: 32px;
+    height: 32px;
+}
+
+#wpadminbar .ab-item:hover {
+    background: #32373c;
+    color: #00b9eb;
+}
+
+#wpadminbar .ab-top-secondary {
+    float: right;
+}
+
+#wpadminbar .avatar {
+    border-radius: 50%;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+/* -------------------------------------------------------------------------- */
+/* WordPress Admin Layout Styles                                      */
+/* -------------------------------------------------------------------------- */
+/* .navbar-vertical {
+    position: fixed;
+    top: calc(32px + var(--phoenix-navbar-top-height));
+    left: 0;
+    width: 12rem;
+    height: calc(100vh - 32px - var(--phoenix-navbar-top-height));
+    background: var(--phoenix-emphasis-bg);
+    border-right: 1px solid var(--phoenix-border-color);
+    z-index: 1000;
+    overflow-y: auto;
+} */
+
+/* .navbar-vertical-content {
+    padding: 1.5rem 0;
+} */
+
+.navbar-vertical .nav-link {
+    color: var(--phoenix-navbar-vertical-link-color);
+    padding: 0.75rem 1rem;
+    border-radius: 0;
+    transition: all 0.2s ease;
+}
+
+.navbar-vertical .nav-link:hover {
+    background: var(--phoenix-navbar-vertical-link-hover-bg);
+    color: var(--phoenix-navbar-vertical-link-hover-color);
+}
+
+.navbar-vertical .nav-item.active > .nav-link {
+    background: var(--phoenix-primary-bg-subtle);
+    color: var(--phoenix-primary);
+    border-right: 3px solid var(--phoenix-primary);
+}
+
+.navbar-vertical .dropdown-indicator-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.2s ease;
+}
+
+.navbar-vertical .nav-link[aria-expanded="true"] .dropdown-indicator-icon {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+.navbar-vertical .collapse .nav {
+    padding-left: 2rem;
+}
+
+.navbar-vertical .collapse .nav-link {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Support Chat Styles */
+.navbar-vertical-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+}
+
+.support-chat-container {
+    position: relative;
+}
+
+.support-chat {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    margin-bottom: 0.5rem;
+}
+
+.support-chat-container.show .support-chat {
+    display: block;
+}
+
+/* Main Content with Sidebar */
+#content {
+    margin-left: 12rem;
+    padding-top: 2rem;
+    min-height: calc(100vh - 32px - var(--phoenix-navbar-top-height));
+}
+
+/* -------------------------------------------------------------------------- */
+/* Enhanced Form Styles                                      */
+/* -------------------------------------------------------------------------- */
+.entry-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--phoenix-heading-color);
+    margin-bottom: 1.5rem;
+}
+
+.section-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--phoenix-heading-color);
+}
+
+.section-header .badge {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.5rem;
+}
+
+.form-section {
+    border: 1px solid var(--phoenix-border-color);
+    transition: all 0.2s ease;
+}
+
+.form-section:hover {
+    border-color: var(--phoenix-primary);
+    box-shadow: 0 0 0 0.125rem rgba(var(--phoenix-primary-rgb), 0.1);
+}
+
+.form-floating > label {
+    font-weight: 500;
+    color: var(--phoenix-secondary-color);
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select ~ label {
+    color: var(--phoenix-primary);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--phoenix-primary) 0%, var(--phoenix-primary-dark) 100%);
+    border: none;
+    font-weight: 500;
+    padding: 0.75rem 2rem;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(var(--phoenix-primary-rgb), 0.3);
+}
+
+/* Breadcrumb Styles */
+.breadcrumb {
+    background: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.breadcrumb a {
+    color: var(--phoenix-primary);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb .current {
+    color: var(--phoenix-secondary-color);
+    font-weight: 500;
+}
+
+/* Theme Toggle Styles */
+.theme-control-toggle {
+    position: relative;
+    display: inline-block;
+}
+
+.theme-control-toggle-input {
+    display: none;
+}
+
+.theme-control-toggle-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--phoenix-body-highlight-bg);
+    color: var(--phoenix-body-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-control-toggle-label:hover {
+    background: var(--phoenix-primary);
+    color: white;
+}
+
+.theme-control-toggle-dark {
+    display: none;
+}
+
+[data-bs-theme="dark"] .theme-control-toggle-light {
+    display: none;
+}
+
+[data-bs-theme="dark"] .theme-control-toggle-dark {
+    display: flex;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Logo Theme Switching                                      */
+/* -------------------------------------------------------------------------- */
+.navbar-brand img {
+    height: 37px;
+    width: auto;
+}
+
+/* Show dark logo by default (light theme) */
+.d-td-none {
+    display: block;
+}
+
+.d-tl-none {
+    display: none;
+}
+
+/* Show light logo in dark theme */
+[data-bs-theme="dark"] .d-td-none {
+    display: none;
+}
+
+[data-bs-theme="dark"] .d-tl-none {
+    display: block;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Enhanced Navbar Styling                                      */
+/* -------------------------------------------------------------------------- */
+.navbar-top {
+    background: var(--phoenix-emphasis-bg);
+    border-bottom: 1px solid var(--phoenix-border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--phoenix-heading-color) !important;
+    text-decoration: none;
+}
+
+.navbar-brand:hover {
+    color: var(--phoenix-primary) !important;
+}
+
+.brand-logo svg {
+    color: var(--phoenix-primary);
+    transition: all 0.2s ease;
+}
+
+.navbar-brand:hover .brand-logo svg {
+    transform: scale(1.1);
+}
+
+.brand-text {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    color: var(--phoenix-body-color);
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: var(--phoenix-primary);
+}
+
+.offcanvas-header {
+    border-bottom: 1px solid var(--phoenix-border-color);
+}
+
+.btn-outline-secondary {
+    border-color: var(--phoenix-border-color);
+    color: var(--phoenix-body-color);
+}
+
+.btn-outline-secondary:hover {
+    background: var(--phoenix-primary);
+    border-color: var(--phoenix-primary);
+    color: white;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Simplified Sidebar Navigation                                      */
+/* -------------------------------------------------------------------------- */
+.navbar-vertical .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    color: var(--phoenix-body-color);
+    text-decoration: none;
+    border-radius: 0;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.navbar-vertical .nav-link:hover {
+    background: var(--phoenix-body-highlight-bg);
+    color: var(--phoenix-primary);
+}
+
+.navbar-vertical .nav-item.active > .nav-link {
+    background: var(--phoenix-primary-bg-subtle);
+    color: var(--phoenix-primary);
+    font-weight: 600;
+    border-right: 3px solid var(--phoenix-primary);
+}
+
+.navbar-vertical .nav-link i {
+    width: 16px;
+    margin-right: 0.75rem;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 991.98px) {
+    .navbar-vertical {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .navbar-vertical.show {
+        transform: translateX(0);
+    }
+
+    #content {
+        margin-left: 0;
+    }
+
+    body.logged-in.admin-bar {
+        margin-top: 0;
+    }
+
+    .navbar-top {
+        margin-top: 0;
+    }
+
+    #wpadminbar {
+        display: none;
+    }
 }
